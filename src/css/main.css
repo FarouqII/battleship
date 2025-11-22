@@ -7,7 +7,7 @@
     --highlight: oklch(0.5 0 102);
     --border: oklch(0.4 0 102);
     --border-muted: oklch(0.3 0 102);
-    --primary: oklch(0.76 0.1 102);
+    --primary: #beb466;
     --secondary: oklch(0.76 0.1 282);
     --danger: oklch(0.7 0.05 30);
     --warning: oklch(0.7 0.05 100);
@@ -25,13 +25,14 @@
 }
 
 button, a {
-    cursor: pointer;
+    cursor: url('../assets/pointer.cur'), auto;
 }
 
 html {
     background-image: url('../assets/star-bg.jpg');
     color: var(--text);
     font-family: "Star Crush";
+    cursor: url('../assets/cursor.cur'), auto;
 }
 
 body {
