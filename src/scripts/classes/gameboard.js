@@ -70,23 +70,23 @@ export default class Gameboard {
     hit(x, y) {
         switch (this.board[x][y]) {
             case 'shadow':
-                this.getShip('shadow').hit();
+                this.getShip('shadow')[0].hitShip();
                 break;
 
             case 'frigate':
-                this.getShip('frigate').hit();
+                this.getShip('frigate')[0].hitShip();
                 break;
 
             case 'serpent':
-                this.getShip('serpent').hit();
+                this.getShip('serpent')[0].hitShip();
                 break;
 
             case 'hawk':
-                this.getShip('hawk').hit();
+                this.getShip('hawk')[0].hitShip();
                 break;
             
             case "runner":
-                this.getShip('runner').hit();
+                this.getShip('runner')[0].hitShip();
             
             default:
                 this.board[x][y] = 'miss';
