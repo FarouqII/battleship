@@ -185,6 +185,10 @@ body {
         border: 1px solid var(--border); 
     }
 
+    .setup-tile:hover {
+        background-color: oklch(40.167% 0.00005 271.152 / 0.196);
+    }
+
     #setup-ships {
         display: flex;
         flex-direction: column;
@@ -207,6 +211,14 @@ body {
         border-radius: 1.5vw;
         background-color: oklch(40.167% 0.00005 271.152 / 0.196);
         padding: 0.25vw;
+    }
+
+    .setup-option:hover {
+        background-color: oklch(40.167% 0.00005 271.152 / 0.294);
+    }
+
+    .selected {
+        background: oklch(40.167% 0.00005 271.152 / 0.461);
     }
 
     .option-image {}
