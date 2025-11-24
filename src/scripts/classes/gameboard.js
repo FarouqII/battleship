@@ -32,7 +32,7 @@ export default class Gameboard {
                 break;
 
             default:
-                this.fleet.push(new Ship('runner', 2));
+                this.fleet.push(new Ship('starfighter', 2));
         }
     }
 
@@ -85,8 +85,8 @@ export default class Gameboard {
                 this.getShip('hawk')[0].hitShip();
                 break;
             
-            case "runner":
-                this.getShip('runner')[0].hitShip();
+            case "starfighter":
+                this.getShip('starfighter')[0].hitShip();
             
             default:
                 this.board[x][y] = 'miss';
