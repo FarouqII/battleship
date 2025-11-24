@@ -174,6 +174,94 @@ body {
     padding: 1vw;
 }
 
+    .switches-container {
+        width: 16rem;
+        position: relative;
+        display: flex;
+        padding: 0;
+        background: var(--bg-light);
+        line-height: 3rem;
+        border-radius: 3rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .switches-container input {
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+    }
+
+    .switches-container label {
+        width: 50%;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        cursor: pointer;
+        color: var(--text-muted);
+        font-size: 1.4rem;
+    }
+
+    .switch-wrapper {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        padding: 0.15rem;
+        z-index: 3;
+        transition: transform .5s cubic-bezier(.77, 0, .175, 1);
+    }
+
+    .switch {
+        border-radius: 3rem;
+        background: var(--primary);
+        height: 100%;
+        position: relative;
+
+        transition: background-color 0.6s ease;
+    }
+
+    .switch div {
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        display: block;
+        color: var(--bg-dark);
+        font-size: 1.4rem;
+        transition: opacity .2s cubic-bezier(.77, 0, .175, 1) .125s;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    /* Slide switch left (Horizontal selected) */
+    .switches-container input:nth-of-type(1):checked ~ .switch-wrapper {
+        transform: translateX(0%);
+    }
+
+    /* Slide switch right (Vertical selected) */
+    .switches-container input:nth-of-type(2):checked ~ .switch-wrapper {
+        transform: translateX(100%);
+    }
+
+    /* Show Horizontal text */
+    .switches-container input:nth-of-type(1):checked ~ .switch-wrapper .switch div:nth-of-type(1) {
+        opacity: 1;
+    }
+
+    /* Show Vertical text */
+    .switches-container input:nth-of-type(2):checked ~ .switch-wrapper .switch div:nth-of-type(2) {
+        opacity: 1;
+    }
+
+    .switches-container input:nth-of-type(1):checked ~ .switch-wrapper .switch {
+        background-color: var(--primary);
+    }
+
+    .switches-container input:nth-of-type(2):checked ~ .switch-wrapper .switch {
+        background-color: var(--secondary);
+    }
+
     #setup-image-container {
         position: absolute;
         width: 38vw;
@@ -235,11 +323,20 @@ body {
         background: oklch(40.167% 0.00005 271.152 / 0.461);
     }
 
-    .option-image {}
+    .option-image {
+        width: 50%;
+        height: auto;
+    }
 
     .option-name {
         font-size: 1.25rem;
         flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .option-name > h3 {
+        transition: color 0.25s ease;
     }
 
         .option-name > h3 {
@@ -255,8 +352,6 @@ body {
         justify-content: center;
         align-items: center;
         text-align: center;
-        width: 100%;
-        height: 100%;
     }
 
 #end {

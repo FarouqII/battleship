@@ -2,99 +2,79 @@ import Ship from "./ship.js";
 
 export default class Gameboard {
     constructor() {
-        this.board = new Array(10).fill('x').map(() => new Array(10).fill('x'));
+        this.board = new Array(10).fill(null).map(() => new Array(10).fill('x'));
         this.fleet = [];
     }
 
     // GETTERS
-    getBoard() { return this.board };
-    getFleet() { return this.fleet };
-    getShip(name) { return this.fleet.filter((ship) => ship.getName() === name) };
+    getBoard() { return this.board; }
+    getFleet() { return this.fleet; }
+    getShip(name) { return this.fleet.find(ship => ship.getName() === name); }
 
     // Fleet
-    addShip(name) {
-        name = name.toLowerCase();
-        switch (name) {
-            case "shadow":
-                this.fleet.push(new Ship('shadow', 5));
-                break;
+    addShip(name, length) {
+        // Prevent duplicates
+        if (this.getShip(name)) return;
 
-            case "frigate":
-                this.fleet.push(new Ship('frigate', 4));
-                break;
-            
-            case "serpent":
-                this.fleet.push(new Ship('serpent', 3));
-                break;
-
-            case "hawk":
-                this.fleet.push(new Ship('hawk', 3));
-                break;
-
-            default:
-                this.fleet.push(new Ship('starfighter', 2));
-        }
+        this.fleet.push(new Ship(name, length));
     }
 
-    emptyFleet() { this.fleet = [] };
-
-    // Place
-    placeShip(ship, start) {
+    // ---------------------------
+    // PLACE SHIP
+    // ---------------------------
+    placeShip(ship, start, axis = "x") {
         let shipLength = ship.getLength();
-        const [x, y] = start;
+        const [col, row] = start;
         const placementMap = [];
 
-        for (let i = y; i < this.board.length; i++) {
-            if (this.board[x][y] !== 'x') return false;
+        for (let i = 0; i < shipLength; i++) {
+            const x = axis === "x" ? col + i : col;
+            const y = axis === "y" ? row + i : row;
 
-            placementMap.push([x, i]);
-            shipLength -= 1;
-            if (shipLength === 0) break;
+            if (this.board[y][x] !== 'x') return false;
+
+            placementMap.push([y, x]);
         }
 
-        placementMap.forEach(coord => {
-            const [i, j] = coord;
-            this.board[i][j] = `${ship.getName()}`;
-        })
+        placementMap.forEach(([y, x]) => {
+            this.board[y][x] = ship.getName();
+        });
 
-        this.addShip(ship.getName());
+        this.addShip(ship.getName(), ship.getLength());
         return true;
     }
 
-    // Attacks
-    receiveAttack(coords) {
-        const [x, y] = coords;
+    // ---------------------------
+    // ATTACKS
+    // ---------------------------
+    receiveAttack([x, y]) {
         this.hit(x, y);
     }
 
     hit(x, y) {
-        switch (this.board[x][y]) {
+        const cell = this.board[x][y];
+
+        switch (cell) {
             case 'shadow':
-                this.getShip('shadow')[0].hitShip();
-                break;
-
             case 'frigate':
-                this.getShip('frigate')[0].hitShip();
-                break;
-
             case 'serpent':
-                this.getShip('serpent')[0].hitShip();
-                break;
-
             case 'hawk':
-                this.getShip('hawk')[0].hitShip();
+            case 'starfighter': {
+                const ship = this.getShip(cell);
+                if (ship) ship.hitShip();
+                this.board[x][y] = 'hit';
                 break;
-            
-            case "starfighter":
-                this.getShip('starfighter')[0].hitShip();
-            
+            }
+
             default:
                 this.board[x][y] = 'miss';
         }
     }
 
+    // ---------------------------
+    // CHECK IF ALL SHIPS ARE SUNK
+    // ---------------------------
     isAllSunk() {
-      const sunk = this.fleet.filter((ship) => ship.getSunk() === true)
-      return sunk.length === 5
+        return this.fleet.every(ship => ship.getSunk());
     }
 }
