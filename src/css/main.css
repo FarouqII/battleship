@@ -172,6 +172,7 @@ body {
     border-radius: 4vw;
 
     padding: 1vw;
+    transition: width 1s ease;
 }
 
     .switches-container {
@@ -262,14 +263,14 @@ body {
         background-color: var(--secondary);
     }
 
-    #setup-image-container {
+    .image-container {
         position: absolute;
         width: 38vw;
         height: 38vw;
         pointer-events: none;
     }
 
-    #setup-board {
+    .board {
         width: 38vw;
         height: 38vw;
         background-color: oklch(14.958% 0.00002 271.152 / 0.764);
