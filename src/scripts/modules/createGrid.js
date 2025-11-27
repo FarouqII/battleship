@@ -1,5 +1,5 @@
 export default function createGrid(board) {
-    const alph = ["A", "B", "c", "D", "E", "F", "G", "H", "I", "J"];
+    const alph = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
     for (let i = 0; i < 100; i++) {
         const tile = document.createElement("a");

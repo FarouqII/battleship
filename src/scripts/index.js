@@ -1,5 +1,5 @@
-import Ship from './classes/ship.js';
-import Gameboard from './classes/gameboard.js';
+import Ship from './classes/Ship.js';
+import Gameboard from './classes/Gameboard.js';
 import Player from './classes/Player.js';
 import "../css/main.css";
 import { gameLoader } from './loaders/game.js';
