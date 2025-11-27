@@ -1,4 +1,5 @@
 import Ship from "../classes/Ship.js";
+import loadImage from "./assets.js";
 
 export function putShip({
     gameboard,

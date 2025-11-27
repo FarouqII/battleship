@@ -27,6 +27,9 @@ export function placeShipRequest(gameboard, shipName, x, y, axis) {
     const length = SHIP_LENGTHS[shipName];
     const board = gameboard.getBoard();
 
+    // --- CHECK DUPLICATE ---
+    if (gameboard.getFleet().some(s => s.name === shipName)) return false;
+
     // --- AXIS BOUNDS CHECK ---
     if (axis === "x" && x + length > 10) return false;
     if (axis === "y" && y + length > 10) return false;

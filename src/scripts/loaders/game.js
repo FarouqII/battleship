@@ -1,118 +1,67 @@
-import Gameboard from '../classes/Gameboard.js';
-import frigate from '../../assets/frigate.png';
-import hawk from '../../assets/hawk.png';
-import shadow from '../../assets/shadow.png';
-import starfighter from '../../assets/starfighter.png';
-import serpent from '../../assets/serpent.png';
-import createGrid from '../modules/createGrid.js';
-import { putShip } from '../modules/util.js';
-import {SHIP_LENGTHS, ALPH} from '../modules/constants.js';
-import loadImage from '../modules/assets.js';
+// src/main/game.js
+import Gameboard from "../classes/Gameboard.js";
+import createGrid from "../modules/createGrid.js";
 
-export function gameLoader(name) {
-    const gameDiv = document.getElementById('game');
+import { setupShipOptions, setupAxisButtons, setupTileClicks } from "../modules/domHandlers.js";
+import { placeAllRandomShips } from "../modules/gameLogic.js";
+import { renderFleet } from "../modules/render.js";
+import { ENABLE_RANDOM } from "../modules/constants.js";
+
+export function gameLoader() {
+    // --- DOM elements ---
+    const gameDiv = document.getElementById("game");
+    const board = document.getElementById("setup-board");
+    const imageContainer = document.getElementById("setup-image-container");
+
+    const options = document.querySelectorAll(".setup-option");
+    const axisButtons = document.querySelectorAll('input[name="axis"]');
+
+    // --- Activate game UI ---
     gameDiv.style.display = "flex";
 
-    const board = document.getElementById('setup-board');
-    const imageContainer = document.getElementById('setup-image-container');
-    const axisButtons = document.querySelectorAll('input[name="axis"]');
-    const options = document.querySelectorAll('.setup-option');
-
+    // --- Gameboard model ---
     const gameboard = new Gameboard();
 
+    // --- create tiles in board ---
     createGrid(board);
-    const allTiles = document.querySelectorAll('.setup-tile');
+    const tiles = document.querySelectorAll(".setup-tile");
 
+    // --- state ---
     let selected = "";
-
     let axis = "x";
 
-    allTiles.forEach(tile => {
-        tile.addEventListener("click", e => {
-            e.preventDefault();
-            if (!selected) return;
-
-            const [col, rowLetter] = tile.id.split('-');
-            const x = parseInt(col) - 1;
-            const y = ALPH.indexOf(rowLetter);
-
-            const placed = placeShipRequest(selected, x, y, axis);
-
-            if (!placed) {
-                console.log("INVALID PLACEMENT");
-                return;
-            }
-            
-            const tileRect = tile.getBoundingClientRect();
-            const containerRect = imageContainer.getBoundingClientRect();
-
-            const shipImg = putShip({
-                gameboard,
-                shipName: selected,
-                shipLength: SHIP_LENGTHS[selected],
-                axis,
-                startingPoint: [x, y],
-                tileRect,
-                containerRect
-            });
-
-            imageContainer.appendChild(shipImg);
-
-            document.querySelector(`#${selected} h3`).style.color = '#bc938c';
-
-            const fleet = gameboard.getFleet();
-            if (fleet.length === 5) {
-                const doneButton = document.getElementById('done-btn');
-                doneButton.style.color = "var(--text)";
-                doneButton.style.pointerEvents = "initial";
-            }
-        });
+    // --- setup ship option buttons ---
+    setupShipOptions(options, shipName => {
+        selected = shipName;
     });
 
-    //placeRandom(board, setSelectedShip, tryPlace);
-    const placements = placeAllRandomShips();
-    renderRandomShips(placements);
+    // --- setup axis selector ---
+    setupAxisButtons(axisButtons, newAxis => {
+        axis = newAxis;
+    });
 
-    function loadImage(name) {
-        switch (name) {
-            case "shadow":
-                return shadow;
+    // --- tile click handler (placing ships manually) ---
+    setupTileClicks(
+        tiles,
+        () => selected,      // getter function
+        () => axis,              // getter function
+        gameboard,
+        imageContainer
+    );
 
-            case "frigate":
-                return frigate;
-            
-            case "serpent":
-                return serpent;
+    if (ENABLE_RANDOM) {
+        // --- Random fleet placement ---
+        const randomPlacement = placeAllRandomShips(gameboard);
 
-            case "hawk":
-                return hawk;
-
-            default:
-                return starfighter;
-        }
+        // --- Render the randomized fleet visually ---
+        renderFleet(
+            gameboard,
+            randomPlacement,
+            imageContainer
+        );
     }
 
-    function renderRandomShips(placements) {
-        for (const shipName in placements) {
-            const { x, y, axis } = placements[shipName];
-
-            const tileId = `${x + 1}-${ALPH[y]}`;
-            const tile = document.getElementById(tileId);
-
-            const tileRect = tile.getBoundingClientRect();
-            const containerRect = imageContainer.getBoundingClientRect();
-
-            const shipImg = putShip({
-                gameboard,
-                shipName,
-                shipLength: SHIP_LENGTHS[shipName],
-                axis,
-                startingPoint: [x, y],
-                tileRect,
-                containerRect
-            });
-
-            imageContainer.appendChild(shipImg);
-        }
+    if (gameboard.getFleet().length === 5) {
+        console.log(gameboard.getBoard());
     }
 }
