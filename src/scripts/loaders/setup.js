@@ -56,7 +56,8 @@ export function setupLoader() {
         renderFleet(
             gameboard,
             randomPlacement,
-            imageContainer
+            imageContainer,
+            board
         );
     }
 

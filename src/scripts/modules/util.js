@@ -49,17 +49,24 @@ export function putShip({
 }
 
 export function createBoard(parentDiv, boardName) {
-    const newBoard = document.createElement('div');
+
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("board-wrapper");
+    wrapper.id = `${boardName}-wrapper`;
+
+    const newBoard = document.createElement("div");
     newBoard.id = `${boardName}-board`;
-    newBoard.classList = "board";
+    newBoard.classList.add("board");
 
-    const newImageContainer = document.createElement('div');
+    const newImageContainer = document.createElement("div");
     newImageContainer.id = `${boardName}-image-container`;
-    newImageContainer.classList = "image-container";
+    newImageContainer.classList.add("image-container");
 
-    parentDiv.appendChild(newBoard);
-    parentDiv.appendChild(newImageContainer);
+    wrapper.appendChild(newBoard);
+    wrapper.appendChild(newImageContainer);
+    parentDiv.appendChild(wrapper);
 }
+
 
 export function canPlaceShip(board, startX, startY, length, axis) {
     if (axis === "x") {

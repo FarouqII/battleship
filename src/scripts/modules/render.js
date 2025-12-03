@@ -16,11 +16,13 @@ export function renderShip(params) {
     }
 }
 
-export function renderFleet(gameboard, placements, container) {
+export function renderFleet(gameboard, placements, container, board) {
     for (const shipName in placements) {
         const { x, y, axis } = placements[shipName];
 
-        const tile = document.getElementById(`${x + 1}-${alph[y]}`);
+        const id = `${x + 1}-${alph[y]}`;
+        const tile = board.querySelector(`#${CSS.escape(id)}`);
+
         const tileRect = tile.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
 
