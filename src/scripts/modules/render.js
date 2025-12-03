@@ -1,5 +1,6 @@
 import { putShip } from '../modules/util.js';
 import { ALPH, SHIP_LENGTHS } from "./constants.js";
+import { enableStartButton } from './domHandlers.js';
 
 const lengths = SHIP_LENGTHS;
 const alph = ALPH;
@@ -7,6 +8,12 @@ const alph = ALPH;
 export function renderShip(params) {
     const shipImg = putShip(params);
     params.container.appendChild(shipImg);
+
+    
+
+    if (params.gameboard.getFleet().length === 5) {
+        enableStartButton();
+    }
 }
 
 export function renderFleet(gameboard, placements, container) {

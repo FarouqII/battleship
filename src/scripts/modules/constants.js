@@ -10,4 +10,4 @@ export const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
 export const SHIPS = ["starfighter", "hawk", "serpent", "frigate", "shadow"];
 
-export const ENABLE_RANDOM = false;
+export const ENABLE_RANDOM = true;

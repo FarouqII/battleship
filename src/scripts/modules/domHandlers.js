@@ -2,6 +2,7 @@ import { placeShipRequest } from "./gameLogic.js";
 import { renderShip } from "./render.js";
 import loadImage from "./assets.js";
 import { ALPH, SHIP_LENGTHS } from "./constants.js";
+import gameLoader from "../loaders/game.js";
 
 const lengths = SHIP_LENGTHS;
 const alph = ALPH;
@@ -18,6 +19,11 @@ export function setupShipOptions(options, onSelect) {
         const img = option.querySelector(".option-image");
         if (img) img.src = loadImage(option.id);
     });
+    
+    document.getElementById("done-btn").addEventListener("click", e => {
+        e.preventDefault();
+        gameLoader();
+    })
 }
 
 export function setupAxisButtons(axisButtons, onAxisChange) {
@@ -59,4 +65,10 @@ export function setupTileClicks(tiles, getSelected, getAxis, gameboard, containe
             });
         });
     });
+}
+
+export function enableStartButton() {
+    const btn = document.getElementById("done-btn");
+    btn.style.color = "var(--text)";
+    btn.style.pointerEvents = "auto";
 }
