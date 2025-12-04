@@ -270,6 +270,10 @@ body {
         pointer-events: none;
     }
 
+    #opponent-image-container > img {
+        filter: sepia(1) hue-rotate(-50deg) saturate(500%);
+    }
+
     .board {
         width: 38vw;
         height: 38vw;

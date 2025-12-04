@@ -21,11 +21,15 @@ export default function gameLoader() {
     createGrid(opponentBoard);
 
     const opponentImages = document.getElementById('opponent-image-container');
+    opponentImages.style.zIndex = "0";
 
     const opponentGameboard = new Gameboard();
 
     const enemyPlacements = placeAllRandomShips(opponentGameboard);
     renderFleet(opponentGameboard, enemyPlacements, opponentImages, opponentBoard);
+    
+    const opponentImagesShips = opponentImages.querySelectorAll('.ship');
+    opponentImagesShips.forEach(ship => ship.style.opacity = "0");
 
     console.log(opponentGameboard.getBoard());
 }
