@@ -35,10 +35,7 @@ export function placeShipRequest(gameboard, shipName, x, y, axis) {
     if (axis === "y" && y + length > 10) return false;
 
     // --- CHECK OVERLAP ---
-    if (!canPlace(board, x, y, length, axis)) {
-        console.log("OVERLAP");
-        return false;
-    };
+    if (!canPlace(board, x, y, length, axis)) return false;
 
     gameboard.placeShip(
         new Ship(shipName, length, axis),

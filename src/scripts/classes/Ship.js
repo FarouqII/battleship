@@ -10,6 +10,7 @@ export default class Ship {
     getName() { return this.name }
     getLength() { return this.length }
     getHits() { return this.hits }
+    getSunk() { return this.isSunk }
 
     // State Modifiers
     hitShip() {

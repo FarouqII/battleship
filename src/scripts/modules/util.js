@@ -78,7 +78,6 @@ export function canPlaceShip(board, startX, startY, length, axis) {
     if (axis === "y") {
         for (let i = 0; i < length; i++) {
             if (board[startY + i][startX] !== "x") return false;
-            console.log(board);
         }
         return true
     }

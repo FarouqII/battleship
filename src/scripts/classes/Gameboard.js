@@ -48,26 +48,22 @@ export default class Gameboard {
     // ATTACKS
     // ---------------------------
     receiveAttack([x, y]) {
-        this.hit(x, y);
+        return this.hit(x, y);
     }
 
     hit(x, y) {
         const cell = this.board[x][y];
 
-        switch (cell) {
-            case 'shadow':
-            case 'frigate':
-            case 'serpent':
-            case 'hawk':
-            case 'starfighter': {
-                const ship = this.getShip(cell);
-                if (ship) ship.hitShip();
-                this.board[x][y] = 'hit';
-                break;
-            }
-
-            default:
-                this.board[x][y] = 'miss';
+        if (cell === "x") {
+            this.board[x][y] = 'miss';
+            return 'miss';
+        } else if (cell === "hit" || cell === "miss") {
+            return;
+        } else {
+            const ship = this.getShip(cell);
+            ship.hitShip();
+            this.board[x][y] = 'hit';
+            return 'hit';
         }
     }
 

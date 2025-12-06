@@ -1,10 +1,11 @@
 import Gameboard from "../classes/Gameboard";
+import setupAttackClicks from "../modules/attackHandler";
 import createGrid from "../modules/createGrid";
 import { placeAllRandomShips } from "../modules/gameLogic";
 import { renderFleet } from "../modules/render";
 import { createBoard } from "../modules/util";
 
-export default function gameLoader() {
+export default function gameLoader(playerGameboard) {
     console.log("GAME STARTED");
 
     const setupShips = document.getElementById('setup-ships');
@@ -21,7 +22,8 @@ export default function gameLoader() {
     createGrid(opponentBoard);
 
     const opponentImages = document.getElementById('opponent-image-container');
-    opponentImages.style.zIndex = "0";
+    const imageContainers = document.querySelectorAll('.image-container');
+    imageContainers.forEach(ic => ic.style.zIndex = "0");
 
     const opponentGameboard = new Gameboard();
 
@@ -29,7 +31,12 @@ export default function gameLoader() {
     renderFleet(opponentGameboard, enemyPlacements, opponentImages, opponentBoard);
     
     const opponentImagesShips = opponentImages.querySelectorAll('.ship');
-    opponentImagesShips.forEach(ship => ship.style.opacity = "0");
-
-    console.log(opponentGameboard.getBoard());
+    //opponentImagesShips.forEach(ship => ship.style.opacity = "0");
+    
+    const opponentTiles = opponentBoard.querySelectorAll('.setup-tile');
+    setupAttackClicks(
+        opponentTiles,
+        playerGameboard,
+        opponentGameboard
+    );
 }

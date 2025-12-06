@@ -32,7 +32,7 @@ export function setupLoader() {
     // --- setup ship option buttons ---
     setupShipOptions(options, shipName => {
         selected = shipName;
-    });
+    }, gameboard);
 
     // --- setup axis selector ---
     setupAxisButtons(axisButtons, newAxis => {
@@ -59,9 +59,5 @@ export function setupLoader() {
             imageContainer,
             board
         );
-    }
-
-    if (gameboard.getFleet().length === 5) {
-        console.log(gameboard.getBoard());
     }
 }

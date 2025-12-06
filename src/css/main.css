@@ -268,10 +268,12 @@ body {
         width: 38vw;
         height: 38vw;
         pointer-events: none;
+        border-radius: 2.5vw;
+        overflow: hidden;
     }
 
     #opponent-image-container > img {
-        filter: sepia(1) hue-rotate(-50deg) saturate(500%);
+        filter: sepia(1) hue-rotate(-50deg) saturate(250%);
     }
 
     .board {
@@ -289,11 +291,18 @@ body {
     }
 
     .setup-tile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border: 1px solid var(--border); 
     }
 
     .setup-tile:hover {
         background-color: oklch(40.167% 0.00005 271.152 / 0.196);
+    }
+
+    .marker {
+        
     }
 
     #setup-ships {

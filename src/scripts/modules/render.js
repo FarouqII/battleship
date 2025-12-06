@@ -38,3 +38,11 @@ export function renderFleet(gameboard, placements, container, board) {
         });
     }
 }
+
+export function renderAttack(tile, result) {
+    if (result === "hit") {
+        tile.classList.add("hit");
+    } else if (result === "miss") {
+        tile.classList.add("miss");
+    }
+}

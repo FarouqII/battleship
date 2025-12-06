@@ -7,7 +7,7 @@ import gameLoader from "../loaders/game.js";
 const lengths = SHIP_LENGTHS;
 const alph = ALPH;
 
-export function setupShipOptions(options, onSelect) {
+export function setupShipOptions(options, onSelect, playerGameboard) {
     options.forEach(option => {
         option.addEventListener("click", e => {
             e.preventDefault();
@@ -22,7 +22,7 @@ export function setupShipOptions(options, onSelect) {
     
     document.getElementById("done-btn").addEventListener("click", e => {
         e.preventDefault();
-        gameLoader();
+        gameLoader(playerGameboard);
     })
 }
 
