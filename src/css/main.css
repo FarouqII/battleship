@@ -7,9 +7,9 @@
     --highlight: oklch(0.5 0 102);
     --border: oklch(0.4 0 102);
     --border-muted: oklch(0.3 0 102);
-    --primary: #beb466;
+    --primary: oklch(76.121% 0.10021 102.024);
     --secondary: oklch(0.76 0.1 282);
-    --danger: oklch(0.7 0.05 30);
+    --danger: oklch(69.963% 0.05082 29.468);
     --warning: oklch(0.7 0.05 100);
     --success: oklch(0.7 0.05 160);
     --info: oklch(0.7 0.05 260);
@@ -160,19 +160,61 @@ body {
             width: 100%;
         }
 
-#game {
+#display {
     display: none;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
     width: 65vw;
-    height: 85vh;
-
+    height: 95vh;
     background-color: oklch(14.958% 0.00002 271.152 / 0.764);
     border: 5px solid var(--border);
     border-radius: 4vw;
+    padding: 1vw;
+    transition: all 1s ease;
+}
+    #topbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60%;
+        height: 10vh;
+        border: 5px solid var(--highlight);
+        border-radius: 4vw;
+        font-size: 1.5rem;
+        padding: 0 1vw;
+    }
+    .name {
+        color: var(--primary);
+    }
+    .typed-cursor {
+        color: none;
+    }
+
+#overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 60vw;
+    height: 60vh;
+    opacity: 0;
+}
+    #overlay-icon {
+        width: 5vw;
+        height: 5vw;
+    }
+    #overlay-header {
+        font-weight: normal;
+    }
+
+#game {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     padding: 1vw;
-    transition: width 1s ease;
 }
 
     .switches-container {
@@ -302,7 +344,8 @@ body {
     }
 
     .marker {
-        
+        width: 2.5vw;
+        height: 2.5vw;
     }
 
     #setup-ships {

@@ -1,9 +1,14 @@
+import Typed from "typed.js";
+
 import Gameboard from "../classes/Gameboard";
+
 import setupAttackClicks from "../modules/attackHandler";
 import createGrid from "../modules/createGrid";
 import { placeAllRandomShips } from "../modules/gameLogic";
 import { renderFleet } from "../modules/render";
 import { createBoard } from "../modules/util";
+
+import loader from '../../assets/loader.svg';
 
 export default function gameLoader(playerGameboard) {
     console.log("GAME STARTED");
@@ -14,7 +19,27 @@ export default function gameLoader(playerGameboard) {
     setupShips.style.display = "none";
     playerBoard.style.pointerEvents = "none";
 
+    const displayDiv = document.getElementById('display');
     const gameDiv = document.getElementById("game");
+    const overlayDiv = document.getElementById("overlay");
+
+    gameDiv.style.opacity = "0";
+    document.getElementById('topbar').style.opacity = "0";
+    overlayDiv.style.opacity = "1";
+    document.getElementById('overlay-icon').src = loader;
+    const overlayHeader = new Typed('#overlay-header', {
+        strings: ["Setting up frontlines...", "Acquiring intel...", "Approaching battlefield..."],
+        typeSpeed: 75,
+        backSpeed: 75,
+        typeDelay: 500,
+    });
+    setTimeout(() => {
+        overlayDiv.style.opacity = "0";
+        document.getElementById('topbar').style.opacity = "1";
+        gameDiv.style.opacity = "1";
+        displayDiv.style.width = "80vw";
+    }, 10000);
+
     gameDiv.style.width = "80vw";
 
     createBoard(gameDiv, "opponent");

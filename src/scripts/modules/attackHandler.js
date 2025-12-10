@@ -2,6 +2,8 @@ import { renderAttack } from "./render";
 import { ALPH } from "./constants";
 import hitMarker from '../../assets/hitMarker.svg';
 import missMarker from '../../assets/missMarker.svg';
+import winIcon from '../../assets/win.svg';
+import loseIcon from '../../assets/lose.svg';
 
 const aiMemory = {
     tried: new Set(),
@@ -13,6 +15,8 @@ const aiMemory = {
 export default function setupAttackClicks(opponentTiles, playerGameboard, opponentGameboard) {
     opponentTiles.forEach(tile => {
         tile.addEventListener("click", () => {
+            if (tile.innerHTML !== "") return;
+            
             // --- Player Attack ---
             const coords = tile.id.split('-');
             const y = parseInt(coords[0] - 1);
@@ -24,16 +28,29 @@ export default function setupAttackClicks(opponentTiles, playerGameboard, oppone
             marker.classList = "marker";
             if (tile.innerHTML === '') tile.appendChild(marker);
             renderAttack(tile, result);
-            // renderHitMarker("opponent", y, x);
 
             if (playerGameboard.isAllSunk() || opponentGameboard.isAllSunk()) {
-                console.log("GAME ENEDED");
-                document.getElementById('game').innerHTML = '';
+                const overlayText = "You destroyed all enemy ships!";
+                if (playerGameboard.isAllSunk()) overlayText = "The enemy destroyed all your ships!"
+
+                const gameDiv = document.getElementById("game");
+                const overlayDiv = document.getElementById("overlay");
+                const overlayIcon = document.getElementById('overlay-icon');
+
+                gameDiv.style.opacity = "0";
+                document.getElementById('topbar').style.opacity = "0";
+                overlayDiv.style.opacity = "1";
+
+                overlayIcon.src = playerGameboard.isAllSunk() ? loseIcon : winIcon;
+                overlayIcon.style.width = "15vw";
+                overlayIcon.style.height = "7.5vw";
+
+                document.getElementById('overlay-header').innerText = overlayText;
                 return;
             }
 
             // --- Opponent AI ---
-            opponentAttack(playerGameboard);
+            setTimeout(() => opponentAttack(playerGameboard), 0);
             console.log(opponentGameboard.getBoard());
         });
     });
@@ -64,17 +81,11 @@ function opponentAttack(gameboard) {
     marker.classList = "marker";
     if (tile.innerHTML === '') tile.appendChild(marker);
 
-    // -----------------------------------------------
-    // 2. If MISS → nothing else
-    // -----------------------------------------------
     if (result === "miss") return;
 
-    // -----------------------------------------------
-    // 3. If HIT → update ship tracking
-    // -----------------------------------------------
     aiMemory.hitsOnCurrentShip.push([x, y]);
 
-    // Detect orientation once we have 2 hits
+    // --- Detect orientation once we have 2 hits ---
     if (aiMemory.hitsOnCurrentShip.length >= 2 && aiMemory.orientation === null) {
         const [h1x, h1y] = aiMemory.hitsOnCurrentShip[0];
         const [h2x, h2y] = aiMemory.hitsOnCurrentShip[1];
@@ -83,7 +94,7 @@ function opponentAttack(gameboard) {
         else aiMemory.orientation = "vertical";
     }
 
-    // Build next targets based on orientation
+    // --- Build next targets based on orientation ---
     aiMemory.targetQueue = [];
 
     if (aiMemory.orientation === "horizontal") {
@@ -99,9 +110,7 @@ function opponentAttack(gameboard) {
         enqueueNeighbors(x, y);
     }
 
-    // -----------------------------------------------
-    // 4. If the ship got sunk → reset memory
-    // -----------------------------------------------
+    // --- If ship sunk, reset memory ---
     if (result === "sunk") {
         resetAIMemory();
     }

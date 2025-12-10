@@ -10,7 +10,7 @@ const playerNameInput = document.getElementById('player-name-input');
 
 playerNameForm.addEventListener('submit', e => {
     e.preventDefault();
-    const name = playerNameInput.innerText;
+    const name = playerNameInput.value;
     starter.style.display = 'none';
     setupLoader(name);
 })

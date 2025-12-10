@@ -57,8 +57,6 @@ export default class Gameboard {
         if (cell === "x") {
             this.board[x][y] = 'miss';
             return 'miss';
-        } else if (cell === "hit" || cell === "miss") {
-            return;
         } else {
             const ship = this.getShip(cell);
             ship.hitShip();
