@@ -3,10 +3,8 @@ import Typed from 'typed.js';
 import Gameboard from "../classes/Gameboard.js";
 import createGrid from "../modules/createGrid.js";
 
-import { setupShipOptions, setupAxisButtons, setupTileClicks } from "../modules/domHandlers.js";
-import { placeAllRandomShips } from "../modules/gameLogic.js";
-import { renderFleet } from "../modules/render.js";
-import { ENABLE_RANDOM } from "../modules/constants.js";
+import { setupShipOptions, setupAxisButtons, setupTileClicks, setupRandomizer } from "../modules/domHandlers.js";
+import shuffleIcon from '../../assets/shuffle.svg';
 
 export function setupLoader(name) {
     // --- DOM elements ---
@@ -57,16 +55,6 @@ export function setupLoader(name) {
         imageContainer
     );
 
-    if (ENABLE_RANDOM) {
-        // --- Random fleet placement ---
-        const randomPlacement = placeAllRandomShips(gameboard);
-
-        // --- Render the randomized fleet visually ---
-        renderFleet(
-            gameboard,
-            randomPlacement,
-            imageContainer,
-            board
-        );
-    }
+    document.getElementById('randomizer-icon').src = shuffleIcon;
+    setupRandomizer(document.getElementById('randomizer'), gameboard, imageContainer, board);
 }

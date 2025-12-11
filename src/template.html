@@ -34,17 +34,20 @@
             </div>
 
             <div id="setup-ships">
-                <div class="switches-container axis-switch">
-                    <input type="radio" id="axis-x" name="axis" value="x" checked />
-                    <input type="radio" id="axis-y" name="axis" value="y" />
+                <div id="button-wrapper">
+                    <button id="randomizer"><img id="randomizer-icon" src="#"></button>
+                    <div class="switches-container axis-switch">
+                        <input type="radio" id="axis-x" name="axis" value="x" checked />
+                        <input type="radio" id="axis-y" name="axis" value="y" />
 
-                    <label for="axis-x">Horizontal</label>
-                    <label for="axis-y">Vertical</label>
+                        <label for="axis-x">Horizontal</label>
+                        <label for="axis-y">Vertical</label>
 
-                    <div class="switch-wrapper">
-                        <div class="switch">
-                            <div>Horizontal</div>
-                            <div>Vertical</div>
+                        <div class="switch-wrapper">
+                            <div class="switch">
+                                <div>Horizontal</div>
+                                <div>Vertical</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,7 +89,7 @@
                     </div>
                 </a>
 
-                <a class="setup-option" id="done-btn">Start Game</a>
+                <a id="done-btn">Start Game</a>
             </div>
         </div>
     </div>

@@ -1,8 +1,9 @@
-import { placeShipRequest } from "./gameLogic.js";
-import { renderShip } from "./render.js";
+import { placeAllRandomShips, placeShipRequest } from "./gameLogic.js";
+import { renderFleet, renderShip } from "./render.js";
 import loadImage from "./assets.js";
 import { ALPH, SHIP_LENGTHS } from "./constants.js";
 import gameLoader from "../loaders/game.js";
+import { resetBoard } from "./util.js";
 
 const lengths = SHIP_LENGTHS;
 const alph = ALPH;
@@ -38,6 +39,7 @@ export function setupTileClicks(tiles, getSelected, getAxis, gameboard, containe
     tiles.forEach(tile => {
         tile.addEventListener("click", e => {
             e.preventDefault();
+            document.querySelector(`#${getSelected()} .option-name h3`).style.color = "#bc938c";
 
             const shipName = getSelected();
             if (!shipName) return;
@@ -71,4 +73,23 @@ export function enableStartButton() {
     const btn = document.getElementById("done-btn");
     btn.style.color = "var(--text)";
     btn.style.pointerEvents = "auto";
+}
+
+export function setupRandomizer(randomizer, gameboard, imageContainer, board) {
+    randomizer.addEventListener('click', e => {
+        e.preventDefault();
+
+        resetBoard(gameboard);
+
+        // --- Random fleet placement ---
+        const randomPlacement = placeAllRandomShips(gameboard);
+
+        // --- Render the randomized fleet visually ---
+        renderFleet(
+            gameboard,
+            randomPlacement,
+            imageContainer,
+            board
+        );
+    })
 }

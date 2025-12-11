@@ -1,6 +1,3 @@
-import Ship from './classes/Ship.js';
-import Gameboard from './classes/Gameboard.js';
-import Player from './classes/Player.js';
 import "../css/main.css";
 import { setupLoader } from './loaders/setup.js';
 

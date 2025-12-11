@@ -1,5 +1,7 @@
 import Ship from "../classes/Ship.js";
 import loadImage from "./assets.js";
+import createGrid from "./createGrid.js";
+import { setupTileClicks } from "./domHandlers.js";
 
 export function putShip({
     gameboard,
@@ -90,4 +92,31 @@ export function tryPlace(tile, gameboard) {
     tile.click();
     const after = gameboard.getFleet().length;
     return after > before;
+}
+
+export function resetBoard(gameboard) {
+    gameboard.resetAll();
+
+    const setupBoard = document.getElementById('setup-board');
+    const setupImageContainer = document.getElementById('setup-image-container');
+
+    setupBoard.innerHTML = '';
+    setupImageContainer.innerHTML = '';
+
+    // --- create tiles in board ---
+    createGrid(setupBoard);
+    const tiles = document.querySelectorAll(".setup-tile");
+
+    // --- state ---
+    let selected = "";
+    let axis = "x";
+
+    // --- tile click handler (placing ships manually) ---
+    setupTileClicks(
+        tiles,
+        () => selected,      // getter function
+        () => axis,              // getter function
+        gameboard,
+        setupImageContainer
+    );
 }

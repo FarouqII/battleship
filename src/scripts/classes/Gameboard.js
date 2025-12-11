@@ -71,4 +71,9 @@ export default class Gameboard {
     isAllSunk() {
         return this.fleet.every(ship => ship.getSunk());
     }
+
+    resetAll() {
+        this.board = new Array(10).fill(null).map(() => new Array(10).fill('x'));
+        this.fleet = [];
+    }
 }
