@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div id="starter">
+        <div class="logo">ORDER 66</div>
+
+        <form>
+            <div id="player-name-form">
+                <label for="player-name-input">Enter your name:</label>
+                <input type="text" id="player-name-input" autocomplete="off">
+            </div>
+
+            <button type="submit" id="start-game-btn">DECLARE WAR</button>
+        </form>
+    </div>
+    
+    <div id="display">
+        <div id="topbar"><span id=topbar-text></span></div>
+
+        <div id="overlay">
+            <img id="overlay-icon" src="#">
+            <h1 id="overlay-header"></h1>
+        </div>
+
+        <div id="game">
+            <div id="setup-wrapper" class="board-wrapper">
+                <div id="setup-board" class="board"></div>
+                <div id="setup-image-container" class="image-container"></div>
+            </div>
+
+            <div id="setup-ships">
+                <div id="button-wrapper">
+                    <button id="randomizer"><img id="randomizer-icon" src="#"></button>
+                    <div class="switches-container axis-switch">
+                        <input type="radio" id="axis-x" name="axis" value="x" checked />
+                        <input type="radio" id="axis-y" name="axis" value="y" />
+
+                        <label for="axis-x">Horizontal</label>
+                        <label for="axis-y">Vertical</label>
+
+                        <div class="switch-wrapper">
+                            <div class="switch">
+                                <div>Horizontal</div>
+                                <div>Vertical</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="reset"><img id="reset-icon" src="#"></button>
+                </div>
+
+
+                <a class="setup-option" id="starfighter">
+                    <img class="option-image"></img>
+                    <div class="option-name">
+                        <h3>Starfighter</h3>
+                        <p>2 Tiles</p>
+                    </div>
+                </a>
+                <a class="setup-option" id="hawk">
+                    <img class="option-image"></img>
+                    <div class="option-name">
+                        <h3>Hawk</h3>
+                        <p>3 Tiles</p>
+                    </div>
+                </a>
+                <a class="setup-option" id="serpent">
+                    <img class="option-image"></img>
+                    <div class="option-name">
+                        <h3>Serpent</h3>
+                        <p>3 Tiles</p>
+                    </div>
+                </a>
+                <a class="setup-option" id="frigate">
+                    <img class="option-image"></img>
+                    <div class="option-name">
+                        <h3>Frigate</h3>
+                        <p>4 Tiles</p>
+                    </div>
+                </a>
+                <a class="setup-option" id="shadow">
+                    <img class="option-image"></img>
+                    <div class="option-name">
+                        <h3>Shadow</h3>
+                        <p>5 Tiles</p>
+                    </div>
+                </a>
+
+                <a id="done-btn">Start Game</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="end"></div>
+</body>
+</html>

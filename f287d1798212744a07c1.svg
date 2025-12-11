@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+  <defs>
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Star twinkle animation -->
+    <style>
+      @keyframes twinkle {
+        0% { opacity: 0.2; }
+        50% { opacity: 1; }
+        100% { opacity: 0.2; }
+      }
+      .star {
+        fill: #ffffff;
+        animation: twinkle 3s infinite ease-in-out;
+      }
+      .star:nth-child(2) { animation-delay: 0.6s; }
+      .star:nth-child(3) { animation-delay: 1.2s; }
+      .star:nth-child(4) { animation-delay: 1.8s; }
+      .star:nth-child(5) { animation-delay: 2.4s; }
+    </style>
+  </defs>
+
+  <!-- Background stars -->
+  <circle class="star" cx="80" cy="40" r="2"/>
+  <circle class="star" cx="520" cy="60" r="1.8"/>
+  <circle class="star" cx="480" cy="150" r="2.2"/>
+  <circle class="star" cx="120" cy="150" r="1.5"/>
+  <circle class="star" cx="300" cy="30" r="2"/>
+
+  <!-- Main text (solid color, glowing) -->
+  <text x="50%" y="50%" text-anchor="middle"
+        font-family="Orbitron, Eurostile, 'Segoe UI', sans-serif"
+        font-size="64"
+        font-weight="900"
+        fill="#bc938c"
+        filter="url(#glow)"
+        dy="0.35em"
+        letter-spacing="6">
+    YOU LOSE!
+  </text>
+
+  <!-- Animated underline -->
+  <rect x="150" y="135" width="300" height="4" rx="2" fill="#bc938c">
+    <animate attributeName="width"
+             values="0;300;0"
+             dur="2.8s"
+             repeatCount="indefinite"/>
+  </rect>
+
+</svg>
