@@ -3,8 +3,9 @@ import Typed from 'typed.js';
 import Gameboard from "../classes/Gameboard.js";
 import createGrid from "../modules/createGrid.js";
 
-import { setupShipOptions, setupAxisButtons, setupTileClicks, setupRandomizer } from "../modules/domHandlers.js";
+import { setupShipOptions, setupAxisButtons, setupTileClicks, setupRandomizer, setupReset } from "../modules/domHandlers.js";
 import shuffleIcon from '../../assets/shuffle.svg';
+import resetIcon from '../../assets/reset.svg';
 
 export function setupLoader(name) {
     // --- DOM elements ---
@@ -57,4 +58,7 @@ export function setupLoader(name) {
 
     document.getElementById('randomizer-icon').src = shuffleIcon;
     setupRandomizer(document.getElementById('randomizer'), gameboard, imageContainer, board);
+
+    document.getElementById('reset-icon').src = resetIcon;
+    setupReset(document.getElementById('reset'), gameboard);
 }

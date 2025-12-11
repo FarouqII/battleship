@@ -39,7 +39,6 @@ export function setupTileClicks(tiles, getSelected, getAxis, gameboard, containe
     tiles.forEach(tile => {
         tile.addEventListener("click", e => {
             e.preventDefault();
-            document.querySelector(`#${getSelected()} .option-name h3`).style.color = "#bc938c";
 
             const shipName = getSelected();
             if (!shipName) return;
@@ -65,6 +64,8 @@ export function setupTileClicks(tiles, getSelected, getAxis, gameboard, containe
                 containerRect,
                 container
             });
+
+            if (gameboard.getFleet().some(s => s.name === getSelected())) document.querySelector(`#${getSelected()} .option-name h3`).style.color = "#bc938c";
         });
     });
 }
@@ -79,7 +80,7 @@ export function setupRandomizer(randomizer, gameboard, imageContainer, board) {
     randomizer.addEventListener('click', e => {
         e.preventDefault();
 
-        resetBoard(gameboard);
+        resetBoard(gameboard, false);
 
         // --- Random fleet placement ---
         const randomPlacement = placeAllRandomShips(gameboard);
@@ -91,5 +92,13 @@ export function setupRandomizer(randomizer, gameboard, imageContainer, board) {
             imageContainer,
             board
         );
+    })
+}
+
+export function setupReset(reset, gameboard) {
+    reset.addEventListener("click", e => {
+        e.preventDefault();
+
+        resetBoard(gameboard, true);
     })
 }

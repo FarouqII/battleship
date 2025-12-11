@@ -50,7 +50,7 @@ export default function setupAttackClicks(opponentTiles, playerGameboard, oppone
             }
 
             // --- Opponent AI ---
-            setTimeout(() => opponentAttack(playerGameboard), 0);
+            setTimeout(() => opponentAttack(playerGameboard), 1000);
             console.log(opponentGameboard.getBoard());
         });
     });
