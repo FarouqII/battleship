@@ -1,4 +1,4 @@
-# Battleship — JavaScript Project (The Odin Project)
+# Battleship JavaScript Project (The Odin Project)
 
 A fully interactive, browser-based implementation of the classic Battleship game.  
 Built as part of The Odin Project’s JavaScript curriculum, this project focuses on modular architecture, DOM manipulation, game logic, AI design, and UI rendering.
